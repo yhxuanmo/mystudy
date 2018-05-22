@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>部门员工</title>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+</head>
+<body>
+    <div class="row clearfix">
+		<div class="col-md-12 column">
+			<h3>部门员工信息</h3>
+		</div>
+	</div>
+    <hr>
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-md-8 column">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>员工编号</th>
+                            <th>员工名称</th>
+                            <th>员工职位</th>
+                            <th>工资</th>
+                        </tr>
+                    </thead>
+                    {% for emp in emp_list %}
+                    <tbody>
+                        <tr>
+                            <td>{{ emp.no }}</td>
+                            <td>{{ emp.name }}</td>
+                            <td>{{ emp.job }}</td>
+                            <td>{{ emp.sal }}</td>
+                        </tr>
+                    </tbody>
+                    {% endfor %}
+                </table>
+            </div>
+
+            <div class="col-md-4 column">
+            </div>
+        </div>
+    <a href="depts" class="btn btn-sm btn-block">返回</a>
+    </div>
+
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script>
+        $('tbody tr:odd').addClass('success');
+        $('tbody tr:even').addClass('warning');
+    </script>
+</body>
+</html>

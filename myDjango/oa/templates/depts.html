@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>部门</title>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+</head>
+<body>
+    <div class="row clearfix">
+		<div class="col-md-12 column">
+			<h3>部门信息</h3>
+		</div>
+	</div>
+    <hr>
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-md-8 column">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>部门编号</th>
+                            <th>部门名称</th>
+                            <th>部门所在地</th>
+                            <th>是否优秀</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    {% for dept in dept_list %}
+                    <tbody>
+                        <tr>
+                            <td>{{ dept.no }}</td>
+                            <td>
+                                <a href="emps?dno={{ dept.no }}">{{ dept.name }}</a>
+                            </td>
+                            <td>{{ dept.location }}</td>
+                            {% if dept.excellent %}
+                            <td><img src="{% static 'images/true.png'%}"></td>
+                            {% else %}
+                            <td></td>
+                            {% endif %}
+                            <td>
+                                <a href="deldept?dno={{ dept.no }}" class="btn btn-info btn-xs">删除</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="col-md-4 column">
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script>
+        $('tbody tr:odd').addClass('success');
+        $('tbody tr:even').addClass('warning');
+    </script>
+</body>
+</html>
