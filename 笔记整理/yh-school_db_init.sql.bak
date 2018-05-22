@@ -1,0 +1,191 @@
+-- 关系型数据库的编程语言
+-- DDL(数据定义语言)：create(创建) / drop(删除) / alter(修改)
+-- DML(数据操纵语言)：insert(插入) / delete(删除) / update(更新)
+-- DQL(数据查询语言)：select(选择) 
+-- DCL(数据控制语言)：grant / revoke / begin / commit / rollback
+
+-- 关系型数据库中数据完整性：
+-- 1.实体完整性：每条记录都是独一无二的(主键/唯一约束/唯一索引)
+-- 2.参照完整性：表中的数据要参照其他表已有的数据(外键)
+-- 3.域完整性：数据是有效的(数据类型/非空约束/默认值约束/检查约束)
+
+-- 表的设计原则：范式理论(1NF / 2NF / 3NF / BCNF)
+-- 范式级别指的是表设计的规范程度，范式级别越高规范程度也就越高
+-- 范式级别越高在插入删除更新数据时，可能发生的问题就越少，而且表中数据的冗余程度就越低
+-- 实际开发中往往会降低范式级别来提升查询数据的性能
+-- 1NF - 列的属性值不能再拆分
+-- 2NF - 所有的列要完全依赖于主键
+-- 3NF - 消除传递依赖
+
+
+-- 如果指定的数据库存在则删除该数据库
+-- drop database if exists school;
+
+-- 创建数据库并指定默认的字符集
+-- create database school default charset utf8;
+
+-- 切换到school数据库
+use school;
+
+-- 关系型数据库通过二维表来组织数据
+-- 删除学生表
+drop table if exists tb_student;
+-- 创建学生表
+-- 主键（primary key）- 能够标识唯一一条记录的列
+create table tb_student
+(
+-- 学生的属性
+stuid int not null, -- 学号
+sname varchar(10) not null, -- 姓名
+ssex bit default 1, -- 性别
+stel char(11), -- 电话
+sbirth date comment '生日', -- comment 后面的内容也是注释,内容要加''
+primary key (stuid)
+);
+
+-- 修改学生表
+-- 添加列
+alter table tb_student add column saddr varchar(100); -- 添加了一个地址列
+-- 删除列
+alter table tb_student drop column stel; -- 删除了电话列
+
+
+-- 插入学生记录
+insert into tb_student values (1001,'墨雨小轩',1,'1992-11-15','成都新津');
+insert into tb_student (stuid, sname) values (1002,'李逍遥');
+insert into tb_student (stuid, sname, ssex) values (1003,'赵灵儿',0);
+insert into tb_student values
+(1004,'云天河',1,'1992-2-2','青鸾峰'),
+(1005,'韩菱纱',0,'1992-2-3','青鸾峰');
+
+-- 删除数据
+-- delete from tb_student where stuid=1003;
+
+-- 更新数据
+-- 通常情况下，更新或删除单条数据都是以ID字段(主键)作为条件
+update tb_student set saddr='仙灵岛' where stuid=1003;
+
+-- 更新多行数据，可以使用集合
+-- update tb_student set saddr='仙灵岛' where stuid in (1003, 1004, 1005);
+
+
+-- 创建课程表(课程编号/课程名称/学分)
+create table tb_subject
+(
+subid int not null,
+subname varchar(20) not null,
+subscore int not null,
+primary key(subid)
+);
+
+insert into tb_subject values
+(1001,'python程序设计',4),
+(1002,'HTML程序设计',2),
+(1003,'Linux操作系统',1),
+(1004,'数据库基础',1);
+
+
+create table tb_person
+(
+personid int not null auto_increment,
+pname varchar(20) not null,
+pbirth date,
+primary key (personid)
+);
+
+create table tb_idcard
+(
+cardid char(18) not null,
+cpolice varchar(20) not null,
+cexpire date not null,
+pid int not null,
+primary key (cardid)
+);
+
+
+-- 外键约束(如果不添加唯一性约束，就是一对多关系,外键列要加到多的那边)
+alter table tb_idcard add constraint fk_idcard_pid foreign key (pid) references tb_person (personid);
+
+-- 唯一性约束(有外键约束后，再加唯一性约束，就是一对一关系)
+alter table tb_idcard add constraint uk_idcard_pid unique (pid);
+
+insert into tb_person (pname,pbirth) values
+('李逍遥','1992-11-11'),
+('赵灵儿','1992-11-12');
+
+insert into tb_idcard values
+('510132199211110012','余杭镇公安','2030-01-01',1),
+('510132199211120021','仙灵岛公安','2030-01-01',2);
+
+
+create table tb_account
+(
+accid char(16) not null,
+balance decimal(15,2) default 0.0,
+pid int not null,
+primary key (accid)
+);
+
+alter table tb_account add constraint fk_account_pid foreign key (pid) references tb_person (personid);
+
+-- on delete cascade 在用户被删时，他对应的account行也删除
+-- alter table tb_account add constraint fk_account_pid foreign key (pid) references tb_person (personid) on delete cascade;
+
+insert into tb_account values
+('1111222233334444',999999.99,1),
+('1111222233334445',100.0,1);
+
+insert into tb_account values
+('1111222233335555',999.99,2),
+('1111222233335556',200.0,2),
+('1111222233335557',399.99,2);
+
+
+
+-- 多对多
+create table tb_sc
+(
+scid int not null auto_increment,
+sid int not null,
+cid int not null,
+score float,
+primary key (scid)
+);
+
+-- 复合主键（多个列合在一起作为主键）
+-- 实际开发中一般都不用复合主键，因为可能导致各种麻烦
+
+alter table tb_sc add constraint fk_sc_sid foreign key (sid) references tb_student (stuid); 
+alter table tb_sc add constraint fk_sc_cid foreign key (cid) references tb_subject (subid);
+
+
+insert into tb_sc (sid,cid,score) values
+(1001,1001,90),
+(1001,1002,99),
+(1002,1002,92),
+(1002,1003,91),
+(1003,1001,98),
+(1003,1004,80);
+
+-- 检查约束：保证数据的有效性(域完整性)
+-- check (条件)
+
+
+
+-- 授予权限和召回权限
+-- 创建用户
+create user xuanmo identified by '123456';
+-- 给xuanmo对应数据库所有权限
+grant all on school.tb_student to xuanmo;
+-- 从xuanmo收回所有权限
+revoke all on school.tb_student from xuanmo;
+-- 只给只读权限
+grant select on school.tb_student to xuanmo;
+-- 给所有库和所有表的权限,但是限定登录ip
+-- grant all on *.* to 'xuanmo'@'10.7.152.72'
+
+-- 删除用户
+-- drop user xuanmo;
+
+
+
