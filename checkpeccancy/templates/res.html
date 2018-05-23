@@ -17,13 +17,14 @@
 			</form>
 		</div>
 	</div>
+		<h1>112222222</h1>
 	<div class="row clearfix">
 		<div class="col-md-12 column">
             {% if infolist %}
 			<table class="table table-striped table-hover">
 				<thead>
 					<tr>
-
+						<th>编号</th>
 						<th>车牌</th>
 						<th>违章原因</th>
 						<th>违章日期</th>
@@ -35,7 +36,7 @@
 
                     {% for info in infolist %}
                     <tr>
-
+						<th>{{info.no}}</th>
 						<th>{{info.car_id}}</th>
 						<th>{{info.pe_reason}}</th>
 						<th>{{info.pe_date}}</th>
@@ -53,30 +54,5 @@
 </div>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script>
-    $('.btn').on('click',function (evt) {
-        var carid = $('#inputCarId').val().trim()
-        $.getJSON('/showinfo/'+carid,function(json){
-            if (json.infolist)
-            <!--console.log(json.infolist)-->
-            <!--console.log(typeof(json.infolist))-->
-            arr = eval(json.infolist)
-            <!--console.log(arr)-->
-            <!--console.log(typeof(arr))-->
-            for (i=0;i<arr.length;i+=1){
-                infodict = arr[i]['fields']
-                <!--console.log(infodict)-->
-                var tr = $('<tr>')
-                var td2 = $('<td>'+infodict.car_id+'</td>')
-                var td3 = $('<td>'+infodict.pe_reason+'</td>')
-                var td4 = $('<td>'+infodict.pe_date+'</td>')
-                var td5 = $('<td>'+infodict.punish+'</td>')
-                var td6 = $('<td>'+infodict.accept+'</td>')
-                tr.append(td2,td3,td4,td5,td6)
-                $('tbody').append(tr)
-            }
-        });
-    })
-</script>
 </body>
 </html>
