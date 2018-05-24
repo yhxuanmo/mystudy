@@ -14,7 +14,6 @@
 					 <label for="inputCarId">车牌号</label><input type="text" class="form-control" id="inputCarId" />
 				</div>
 				<a href="javascript:void(0)" class="btn btn-default">查询</a>
-                <a href="/add" class="btn btn-default">添加新记录</a>
 			</form>
 		</div>
 	</div>
@@ -42,27 +41,7 @@
 <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script>
     $('.btn').on('click',function (evt) {
-        if ($('td')){
-            $('td').parent().remove();
-        }
-        var carid = $('#inputCarId').val().trim()
-        $.getJSON('/showinfo/'+carid,function(json){
-            if (json.code == 200){
-                arr = eval(json.infolist)
-                for (i=0;i<arr.length;i+=1){
-                    infodict = arr[i]['fields']
-                    <!--console.log(infodict)-->
-                    var tr = $('<tr>')
-                    var td2 = $('<td>'+infodict.car_id+'</td>')
-                    var td3 = $('<td>'+infodict.pe_reason+'</td>')
-                    var td4 = $('<td>'+infodict.pe_date+'</td>')
-                    var td5 = $('<td>'+infodict.punish+'</td>')
-                    var td6 = $('<td>'+infodict.accept+'</td>')
-                    tr.append(td2,td3,td4,td5,td6)
-                    $('tbody').append(tr)
-                }
-            }
-        });
+        var carid = $('#inputCarId').val();
     })
 </script>
 </body>

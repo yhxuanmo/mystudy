@@ -31,7 +31,7 @@
                         <tr>
                             <td>{{ dept.no }}</td>
                             <td>
-                                <a href="emps?dno={{ dept.no }}">{{ dept.name }}</a>
+                                <a href="{% url 'emps' dept.no %}">{{ dept.name }}</a>
                             </td>
                             <td>{{ dept.location }}</td>
                             {% if dept.excellent %}
@@ -40,7 +40,7 @@
                             <td></td>
                             {% endif %}
                             <td>
-                                <a href="deldept?dno={{ dept.no }}" class="btn btn-info btn-xs">删除</a>
+                                <a no="{{ dept.no }}" href="javascript:void(0);" class="btn btn-info btn-xs foo">删除</a>
                             </td>
                         </tr>
                     </tbody>
@@ -51,11 +51,22 @@
             </div>
         </div>
     </div>
+    <a href="/hrs/add" class="btn btn-info btn-xs">添加部门</a>
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script>
         $('tbody tr:odd').addClass('success');
         $('tbody tr:even').addClass('warning');
+        $('.foo').on('click',function(evt){
+            var a = $(evt.target);
+            if(confirm('确定要删除吗？')){
+                $.getJSON('deldept/'+a.attr('no'),function(json){
+                    if(json.code == 200){
+                        a.parent().parent().remove();
+                    }
+                });
+            }
+        });
     </script>
 </body>
 </html>

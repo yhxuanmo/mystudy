@@ -9,13 +9,14 @@
 <body>
     <div class="row clearfix">
 		<div class="col-md-12 column">
-			<h3>部门员工信息</h3>
+			<h3>{{ dept_name }}员工信息</h3>
 		</div>
 	</div>
     <hr>
     <div class="container">
         <div class="row clearfix">
             <div class="col-md-8 column">
+                {% if emp_list %}
                 <table class="table table-hover">
                     <thead>
                         <tr>
@@ -36,12 +37,15 @@
                     </tbody>
                     {% endfor %}
                 </table>
+                {% else %}
+                <h3>该部门暂时还没有人</h3>
+                {% endif %}
             </div>
 
             <div class="col-md-4 column">
             </div>
         </div>
-    <a href="depts" class="btn btn-sm btn-block">返回</a>
+    <a href="{% url 'depts' %}" class="btn btn-sm btn-block">返回</a>
     </div>
 
     <script src="{% static 'js/jquery.min.js' %}"></script>

@@ -126,3 +126,20 @@ USE_TZ = True
 STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
 
 STATIC_URL = '/static/'
+
+# 配置日志输出到控制台 日志级别为DEBUG(最详细的日志)
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'console': {
+#             'class': 'logging.StreamHandler',
+#         },
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['console'],
+#             'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
+#         },
+#     },
+# }

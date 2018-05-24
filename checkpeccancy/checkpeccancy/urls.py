@@ -20,6 +20,7 @@ from check import views
 
 urlpatterns = [
     url('admin/', admin.site.urls),
-    url(r'^showinfo/(?P<carid>[0-9]+)$',views.show,name='checkinfo'),
-    url('show/', views.index)
+    url(r'^showinfo/(?P<carid>[0-9]*)$',views.show,name='checkinfo'),
+    url('show/', views.index),
+    url(r'^add',views.add)
 ]

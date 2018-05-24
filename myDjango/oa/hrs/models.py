@@ -25,6 +25,8 @@ class Emp(models.Model):
     no = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=20)
     job = models.CharField(max_length=10)
+    # 自参照完整性 - 员工的主管应该是已经有员工编号的员工
+    # mgr = models.ForeignKey('self',null=True, blank=True,on_delete=models.PROTECT)
     mgr = models.IntegerField(null=True, blank=True, verbose_name='主管')
     sal = models.DecimalField(max_digits=7, decimal_places=2)
     comm = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True)

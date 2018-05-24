@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加部门</title>
+</head>
+<body>
+    <h3>添加部门</h3>
+    <hr>
+    <form action="/hrs/add", method="post">
+        <table>
+        {% csrf_token %}
+        {{ f.as_table }}
+        </table>
+        <input type="submit" value="添加">
+    </form>
+</body>
+</html>
