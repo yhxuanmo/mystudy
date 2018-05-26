@@ -171,6 +171,14 @@ python manage.py startapp hrs
     STATIC_URL = '/static/'
     ```
 
+  - 指定Django序列化器(可以不用指定)
+
+    ```python
+    SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
+    ```
+
+    指定序列化器为PickleSerializer
+
 #### urls.py
 
 - 这个文件主要是映射我们不同的url，对应我们的应用(app)视图(views.py)中的方法的
@@ -198,11 +206,11 @@ python manage.py startapp hrs
 
   ```python
   from django.contrib import admin
-
+  
   # Register your models here.
   # 将应用中模型(models.py)的相关类引入
   from hrs.models import Dept, Emp
-
+  
   # 在管理员后台 以表格形式显示内容
   # 这里的类要继承admin.ModelAdmin
   class DeptAdmin(admin.ModelAdmin):
@@ -210,7 +218,7 @@ python manage.py startapp hrs
       list_display = ('no', 'name', 'location', 'excellent')
       # 指定排序方式
       ordering = ('no',)
-
+  
   class EmpAdmin(admin.ModelAdmin):
       list_display = ('no', 'name', 'job', 'mgr', 'sal', 'comm', 'dept')
       ordering = ('no',)
@@ -222,7 +230,7 @@ python manage.py startapp hrs
   admin.site.register(Emp,EmpAdmin)
   ```
 
-
+- 要使用管理员，首先我们需要在虚拟环境的终端下，通过python manage.py createsuperuser 命令创建一个管理员
 
 
 #### models.py
@@ -356,5 +364,21 @@ python manage.py startapp hrs
   {{text}}
   ```
 
-  ​
+  
+
+- POST表单(form)令牌
+
+  ```
+  {% csrf_token %}
+  ```
+
+
+
+- Django  生成的表单
+
+  ```
+  {{ f.as_table }}
+  ```
+
+  
 
