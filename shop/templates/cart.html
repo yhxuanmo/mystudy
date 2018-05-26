@@ -39,7 +39,7 @@
 				<td>{{ item.amount }}</td>
 				<td class="price">&yen;{{ item.total }}</td>
 				<td>
-					<a href="" class="del">删除</a>
+					<a href="/del_item/{{ item.goods.id }}" class="del">删除</a>
 				</td>
 			</tr>
 			{% endfor %}
@@ -47,7 +47,7 @@
 				<td colspan="5" class="total price">&yen;{{ total }}元</td>
 			</tr>
 		</table>
-		<a href="clear_cart" class="back">清空购物车</a>
+		<a href="/clear_cart" class="back">清空购物车</a>
 		{% else %}
 		<h3 style="clear: both;">购物车中暂时没有商品!</h3>
 		{% endif %}

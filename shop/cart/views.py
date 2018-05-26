@@ -34,7 +34,7 @@ class ShoppingCart(object):
 
     def remove_item(self, id):
         if id in self.items:
-            self.items.remove(id)
+            self.items.pop(id)
 
     def clear_all_item(self):
         self.num = 0
@@ -73,3 +73,17 @@ def show_cart(request):
     cart_items = cart.items.values() if cart else []
     total = cart.total if cart else 0
     return render(request, 'cart.html', {'cart_items': cart_items, 'total': total})
+
+
+def del_item(request,id):
+    cart = request.session.get('cart')
+    cart.remove_item(id)
+    request.session['cart'] = cart
+    return redirect('/show_cart')
+
+
+def clear_all_item(request):
+    cart = request.session.get('cart')
+    cart.clear_all_item()
+    request.session['cart'] = cart
+    return redirect('/show_cart')

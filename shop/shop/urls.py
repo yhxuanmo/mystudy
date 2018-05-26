@@ -22,5 +22,7 @@ urlpatterns = [
     path('',views.index),
     path('add_to_cart/<int:id>', views.add_to_cart),
     path('show_cart', views.show_cart),
+    path('del_item/<int:id>', views.del_item),
+    path('clear_cart', views.clear_all_item),
     path('admin/', admin.site.urls),
 ]
