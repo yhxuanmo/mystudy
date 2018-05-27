@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登陆</title>
+</head>
+<body>
+    <h3>用户登陆</h3>
+    <div>
+        <form action="/" method="post">
+            <label>用户名：</label><input id="uname" name='uname' type="text"><span id="nres"></span><br>
+            <label>密码：</label><input id="upwd" name="upwd" type="password"><span id="pres"></span><br>
+            {% csrf_token %}
+            <input type="submit" id="login" value="登陆">
+            <input type="button" id="register" value="注册">
+        </form>
+    </div>
+    <div><span id="error">{{ error }}</span></div>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $(function(){
+        $('#register').on('click',function () {
+           window.location.href='/register'
+        })
+        $('#login').on('click',function () {
+            if ($('#uname').val()==''){
+                $('#nres').text('请输入用户名');
+                return false
+            }else if ($('#upwd').val()==''){
+                $('#pres').text('请输入密码');
+                return false;
+            }else {
+                return true;
+            }
+
+        })
+        $('#uname').focus(function(){
+            $('#nres').text('');
+            $('#error').text('');
+        })
+        $('#upwd').focus(function(){
+            $('#pres').text('');
+            $('#error').text('');
+        })
+
+    });
+</script>
+</body>
+</html>
