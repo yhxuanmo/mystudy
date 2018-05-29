@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+</head>
+<body>
+    <h3>学生注册</h3>
+    <div>
+        <form action="register" method="post">
+            {% csrf_token %}
+            <label>用户名：</label><input id="name" name="name" type="text"><span id="nres"></span><br>
+            <label>密码：</label><input  id='pwd' name="passwd" type="password"><span id="pres"></span><br>
+            <label>重复密码：</label><input id="rpwd" type="password"><span id="rpres"></span><br>
+            <label>性别：</label><input type="radio" name="sex" value="1" checked="checked">男
+                                    <input type="radio" name="sex" value="0">女<br>
+            <input id="register" type="submit" value="注册">
+        </form>
+    </div>
+
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $(function () {
+        var isname = false;
+        var ispwd = false;
+        {#失去焦点事件#}
+        $('#name').blur(function (evt) {
+            {#判断用户名是否有效#}
+            var name = $(evt.target).val()
+            if (name == ''){
+                $('#nres').text('请输入用户名');
+                return;
+            }
+            $.getJSON('/find/'+name,function (json) {
+                if (json.here){
+                    $('#nres').text('该用户名已存在');
+                    isname = false;
+                }
+                else{
+                    $('#nres').text('该用户名可用');
+                    isname = true;
+                }
+            })
+        })
+        $('#pwd').blur(function () {
+            if ($('#pwd').val()==''){
+                $('#pres').text('请输入密码')
+            }
+        })
+
+        $('#rpwd').blur(function () {
+            {#判断密码是否一致#}
+            var pwd = $('#pwd').val()
+            var rpwd = $('#rpwd').val()
+            if (pwd==''){
+                return
+            }
+            if (pwd == rpwd){
+                $('#pres').text('√')
+                $('#rpres').text('√')
+                ispwd = true;
+            }else {
+                $('#rpres').text('重复密码不正确');
+                ispwd = false;
+            }
+        })
+        {#获得焦点事件#}
+        $('#name').focus(function () {
+            $('#nres').text('');
+        })
+        $('#pwd').focus(function () {
+            $('#pres').text('');
+        })
+        $('#rpwd').focus(function () {
+            $('#rpres').text('');
+        })
+
+          {#提交表单#}
+        $('#register').on('click',function (evt) {
+
+            if (!isname || !ispwd) {
+                return false;
+            }else {
+                return true;
+            }
+
+        })
+    })
+</script>
+</body>
+</html>
