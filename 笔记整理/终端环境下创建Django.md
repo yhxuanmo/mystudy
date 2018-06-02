@@ -1,5 +1,7 @@
 ### 终端环境下创建Django
 
+####虚拟环境和项目在一起
+
 - 首先要检查python版本，确定Django安装的版本
 
 1、创建文件夹，用于存放虚拟目录，项目，应用目录(app)
@@ -23,6 +25,17 @@ mkdir hello_django
   ```
   python3 -m venv venv
   ```
+
+- 用 virtualenv 创建虚拟环境
+
+  - 需要pip安装virtualenv
+  - 创建虚拟环境
+
+  ```
+  virtualenv --no-site-packages venv
+  ```
+
+  - --no-site-packages  纯净创建，不包含公有的包
 
 3、激活虚拟环境
 
@@ -70,7 +83,11 @@ python manage.py startapp hrs
 
 - 这里创建了hrs应用
 
+#### 虚拟环境和项目文件分开
 
+- 我们可以创建一个虚拟环境，虚拟环境可以对应多个项目
+- 虚拟环境创建的方法和上面步骤一样，不再复述
+- 唯一有区别的是：虚拟环境和项目在一起，用pychram打开项目时，自动激活虚拟环境；虚拟环境和项目文件分开，我们则需要在pychram中指定对应的虚拟环境
 
 
 
