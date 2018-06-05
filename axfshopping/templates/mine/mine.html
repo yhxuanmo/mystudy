@@ -16,24 +16,32 @@
 
         <div class="fixed">
             <!--如果登录，展示头像-->
-                <img src="" alt="icon">
+            {% if user.id %}
+                <img src="/media/{{ user.icon }}" alt="icon">
             <!--或者-->
+            {% else %}
                 <span class="glyphicon glyphicon-user"></span>
             <!--判断结束-->
-
+            {% endif %}
             <!--如果登录，展示姓名-->
-                <p></p>
+            {% if user.id %}
+                <p>{{ user.username }}</p>
             <!--或者展示登录的链接-->
-                <a href=""></a>
+            {% else %}
+                <a href="">{% url 'user:login' %}</a>
+            {% endif %}
             <!--判断结束-->
 
 
 
             <p><span class="glyphicon glyphicon-fire"></span><span>等级</span></p>
             <!--如果没有登录,展示注册信息-->
+            {% if user.id %}
+            {% else %}
                 <div id="regis">
-                    <a href="">注册</a>
+                    <a href="{% url 'user:register' %}">注册</a>
                 </div>
+            {% endif %}
             <!--判断结束-->
 
             <p><span class="glyphicon glyphicon-heart"></span><span>收藏</span></p>
@@ -122,10 +130,11 @@
             </menu>
 
             <!--如果登录了,则退出展示-->
-
+            {% if user.id %}
                 <p class="logout">
-                    <a href="">退出</a>
+                    <a href="{% url 'user:logout' %}">退出</a>
                 </p>
+            {% endif %}
             <!--判断结束-->
         </div>
     </div>

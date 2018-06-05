@@ -1,5 +1,8 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from home.models import MainWheel, MainNav, MainMustBuy, MainShop, MainShow
+from django.urls import reverse
+
+from home.models import MainWheel, MainNav, MainMustBuy, MainShop, MainShow, FoodType, Goods
 
 def home(request):
     """
@@ -22,3 +25,52 @@ def home(request):
                 'title': '首页'
                 }
         return render(request, 'home/home.html', data)
+
+
+def mine(request):
+    if request.method == 'GET':
+        return render(request, 'mine/mine.html')
+
+
+def market(request):
+    if request.method == 'GET':
+        # 重定向，给url加上默认参数
+        return HttpResponseRedirect(reverse('home:user_market', args=('104749', '0', '0')))
+
+
+def user_market(request, typeid, childid, sortid):
+    """
+    :param typeid: 分类id
+    :param childid: 子分类id
+    :param sortid:  排序id
+    """
+    if request.method == 'GET':
+        typeList = FoodType.objects.all()
+        if childid == '0':
+            goodsList = Goods.objects.filter(categoryid=typeid)
+        else:
+            goodsList = Goods.objects.filter(categoryid=typeid, childcid=childid)
+        foodtypes_current = typeList.filter(typeid=typeid).first()
+        if foodtypes_current:
+            childtypenames = foodtypes_current.childtypenames.split('#')
+            childList = []
+            for childtypename in childtypenames:
+                childList.append(childtypename.split(':'))
+
+        if sortid == '0':
+            pass
+        elif sortid == '1':
+            goodsList = goodsList.order_by('productnum')
+        elif sortid == '2':
+            goodsList = goodsList.order_by('-price')
+        elif sortid == '3':
+            goodsList = goodsList.order_by('price')
+
+        data = {
+            'typeList': typeList,
+            'goodsList': goodsList,
+            'typeid': typeid,
+            'childid': childid,
+            'childList': childList,
+        }
+        return render(request, 'market/market.html', data)

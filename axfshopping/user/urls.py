@@ -8,4 +8,5 @@ urlpatterns=[
     # 登录
     url(r'^login/', views.login, name='login'),
     # 注销
+    url(r'^logout', views.logout, name='logout'),
 ]
