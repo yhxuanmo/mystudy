@@ -10,18 +10,19 @@
     <div id="order_info" class="container">
 
     <!--订单编号-->
-    <h3>订单编号:</h3>
+    <h3>订单编号:{{ order.o_num }}</h3>
     <!--处理结束-->
     <ul>
 
         <!--所有订单信息展示-->
+        {% for info in order.ordergoodsmodel_set.all %}
             <li>
                 <!--商品名称展示-->
-                <img src="">
+                <img src="{{ info.goods.productimg }}">
 
-                <span> <!-- 数量展示 --></span>
+                <span> {{ info.goods_num }}<!-- 数量展示 --></span>
             </li>
-
+        {% endfor %}
         <!--订单处理结束-->
 
     </ul>

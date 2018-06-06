@@ -30,29 +30,29 @@ $(function () {
 
 
 //    添加商品到购物车
-    $(".addShopping").click(function () {
-        //    拿到商品id发送给服务器
-        var addShop = $(this);
-        var goodsid = $(this).attr("goodsid");
-        // console.log(goodsid);
-        // console.log($(this).attr("class"));
-        // console.log("**************")
-        // var goodsid2 = $(this).prop("goodsid");
-        // console.log(goodsid2);
-        // console.log($(this).prop("class"));
-
-        $.getJSON("/axf/addtocart/", {"goodsid": goodsid}, function (data) {
-            console.log(data);
-            if (data["status"] == "901") {
-                window.open("/axf/userlogin/", target = "_self");
-            } else if (data["status"] == "200") {
-                var g_num = data["g_num"];
-                var span_num = addShop.prev();
-                span_num.html(g_num);
-            }
-        })
-
-    })
+//     $(".addShopping").click(function () {
+//         //    拿到商品id发送给服务器
+//         var addShop = $(this);
+//         var goodsid = $(this).attr("goodsid");
+//         // console.log(goodsid);
+//         // console.log($(this).attr("class"));
+//         // console.log("**************")
+//         // var goodsid2 = $(this).prop("goodsid");
+//         // console.log(goodsid2);
+//         // console.log($(this).prop("class"));
+//
+//         $.getJSON("/axf/addtocart/", {"goodsid": goodsid}, function (data) {
+//             console.log(data);
+//             if (data["status"] == "901") {
+//                 window.open("/axf/userlogin/", target = "_self");
+//             } else if (data["status"] == "200") {
+//                 var g_num = data["g_num"];
+//                 var span_num = addShop.prev();
+//                 span_num.html(g_num);
+//             }
+//         })
+//
+//     })
     // 添加商品到购物车
     $(".subShopping").click(function () {
         //    拿到商品id发送给服务器

@@ -8,6 +8,7 @@
 {% block EXTJS %}
     {{ block.super }}
     <script type="text/javascript" src="{% static 'app/cart/js/cart.js' %}"></script>
+    <script type="text/javascript" src="{% static 'app/market/js/my_market.js' %}"></script>
 {% endblock %}
 
 
@@ -55,40 +56,43 @@
                 <menu>
 
                     <ul>
+                    {% csrf_token %}
                         <!--购物车信息展示-->
+                        {% for goodsinfo in user_cart %}
                             <li class="menuList" cartid="">
                                 <div class="confirm">
                                     <span class="is_choose" is_select="">
-
-                                            <span>√</span>
-
-                                            <span></span>
-
+                                        {% if goodsinfo.is_select %}
+                                            <span class="is_select" goodsid="{{ goodsinfo.goods.id }}">√</span>
+                                        {% else %}
+                                            <span class="is_select" goodsid="{{ goodsinfo.goods.id }}">X</span>
+                                        {% endif %}
 
                                     </span>
                                 </div>
                                 <a href="#">
-                                    <img src="" alt="">
-                                    <p></p>
+                                    <img src="{{ goodsinfo.goods.productimg }}" alt="">
+                                    <p>{{ goodsinfo.goods.productlongname }}</p>
                                 </a>
                                 <section>
-                                    <button class="subShopping">-</button>
-                                    <span></span>
-                                    <button class="addShopping">+</button>
+                                    <button goodsid="{{ goodsinfo.goods.id }}" class="subcart">-</button>
+                                    <span id="num_{{ goodsinfo.goods.id }}">{{ goodsinfo.c_num }}</span>
+                                    <button goodsid="{{ goodsinfo.goods.id }}" class="addcart">+</button>
                                 </section>
                             </li>
+                        {% endfor %}
                         <!--购物车数据处理结束-->
 
 
                         <li class="payTheBill">
 
-                            <div class="confirm" id="all_select">
+                            <div class="confirm" id="">
                                 <span>
-
-                                        <span>√</span>
-
-                                        <span></span>
-
+                                        {% if is_all %}
+                                        <span id="all_select" allstatus="{{ is_all }}">√</span>
+                                        {% else %}
+                                        <span id="all_select" allstatus="{{ is_all }}">X</span>
+                                        {% endif %}
                                 </span>
                             </div>
 
@@ -97,7 +101,7 @@
                                 <span>总价:</span>
                             </p>
 
-                            <span id="generate_order">下单</span>
+                            <span id="generate_order"><a href="{% url 'home:generate_order' %}">下单</a></span>
 
                         </li>
 

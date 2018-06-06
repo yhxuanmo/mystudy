@@ -7,6 +7,7 @@
 
 {% block EXTJS %}
     <script type="text/javascript" src="{% static 'app/market/js/market.js' %}"></script>
+    <script type="text/javascript" src="{% static 'app/market/js/my_market.js' %}"></script>
 {% endblock %}
 
 
@@ -48,6 +49,7 @@
                 <ul>
 
                     <!--商品信息展示-->
+                {% csrf_token %}
                     {% for goods in goodsList %}
                         <li>
                             <a href="#">
@@ -68,9 +70,9 @@
                                 </div>
                             </a>
                         <section>
-                            <button goodsid="" class="subShopping">-</button>
-                            <span>0</span>
-                            <button goodsid="" class="addShopping">+</button>
+                            <button goodsid="{{ goods.id }}" class="subcart">-</button>
+                                    <span id="num_{{ goods.id }}">0</span>
+                            <button goodsid="{{ goods.id }}" class="addcart">+</button>
                         </section>
                         </li>
                     {% endfor %}
