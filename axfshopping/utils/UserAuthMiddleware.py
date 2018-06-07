@@ -12,7 +12,8 @@ class UserAuthMiddle(MiddlewareMixin):
     def process_request(self,request):
         path = request.path
 
-        need_login = ['/axf/mine/', '/axf/cart/', '/axf/generateOrder/','/axf/allSelect/']
+        need_login = ['/axf/mine/', '/axf/cart/', '/axf/generateOrder/','/axf/allSelect/',
+                      '/axf/changeOrderStatus/','/axf/waitPay/','/axf/payed/', '/axf/getTotalPrice/']
         can_pass = ['/axf/addcart/', '/axf/subcart/']
         if (path in need_login) or (path in can_pass):
 

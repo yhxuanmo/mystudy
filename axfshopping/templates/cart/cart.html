@@ -73,7 +73,12 @@
                                 <a href="#">
                                     <img src="{{ goodsinfo.goods.productimg }}" alt="">
                                     <p>{{ goodsinfo.goods.productlongname }}</p>
+                                    <p>
+                                    <span>单价</span>
+                                    <span>￥{{ goodsinfo.goods.price }}</span>
+                                    </p>
                                 </a>
+
                                 <section>
                                     <button goodsid="{{ goodsinfo.goods.id }}" class="subcart">-</button>
                                     <span id="num_{{ goodsinfo.goods.id }}">{{ goodsinfo.c_num }}</span>
@@ -88,10 +93,10 @@
 
                             <div class="confirm" id="">
                                 <span>
-                                        {% if is_all %}
-                                        <span id="all_select" allstatus="{{ is_all }}">√</span>
+                                        {% if is_all_select %}
+                                        <span id="all_select" allstatus="{{ is_all_select }}">√</span>
                                         {% else %}
-                                        <span id="all_select" allstatus="{{ is_all }}">X</span>
+                                        <span id="all_select" allstatus="{{ is_all_select }}">X</span>
                                         {% endif %}
                                 </span>
                             </div>
@@ -99,9 +104,11 @@
                             <p>
                                 <span>全选</span>
                                 <span>总价:</span>
+                                <span id="total"></span>
                             </p>
 
-                            <span id="generate_order"><a href="{% url 'home:generate_order' %}">下单</a></span>
+{#                            <span id="generate_order"><a href="{% url 'home:generate_order' %}">下单</a></span>#}
+                            <span id="generate_order">下单</span>
 
                         </li>
 

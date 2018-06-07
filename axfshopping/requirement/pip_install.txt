@@ -1,0 +1,4 @@
+Django==1.11
+Pillow==5.1.0
+PyMySQL==0.8.1
+pytz==2018.4

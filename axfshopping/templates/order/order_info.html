@@ -3,6 +3,7 @@
 
 {% block EXTJS %}
     <script type="text/javascript" src="{% static 'app/order/js/order.js' %}"></script>
+    <script type="text/javascript" src="{% static 'app/market/js/my_market.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -26,9 +27,10 @@
         <!--订单处理结束-->
 
     </ul>
+    {% csrf_token %}
         <!--订单id展示-->
-        <button id="alipay" class="btn btn-success btn-block" orderid="">Alipay</button>
-
+        <button id="userpay" class="btn btn-success btn-block" orderid="{{ order.id }}">Alipay</button>
+        <a href="{% url 'home:mine' %}" class="btn btn-success btn-block">返回个人中心</a>
     </div>
 
 

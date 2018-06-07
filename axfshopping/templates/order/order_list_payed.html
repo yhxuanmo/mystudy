@@ -8,19 +8,26 @@
 
     <ul>
         <!--订单展示-->
+        {% for order in payed_orders %}
             <li>
                 <a href="#">
-                    <p><!-- 订单id --></p>
+                    <p>订单编号:{{ order.o_num }}<!-- 订单id --></p>
                     <p><!-- 数量 --></p>
                         <!--展示商品的名称-->
+                        {% for order_goods in order.ordergoodsmodel_set.all %}
                         <li>
-                            <img src="" alt="">
+                            <p>{{ order_goods.goods.productlongname }}</p>
+                            <img src="{{ order_goods.goods.productimg }}" alt="">
                         </li>
+
+                        {% endfor %}
                         <!--处理结束-->
                 </a>
             </li>
+            <hr style=" background-color: #5bc0de;height: 2px;">
+        {% endfor %}
         <!--订单处理结束-->
-
+    <a href="{% url 'home:mine' %}" class="btn btn-success btn-block">返回个人中心</a>
     </ul>
 
 

@@ -4,6 +4,7 @@ from django.urls import reverse
 
 from home.models import MainWheel, MainNav, MainMustBuy, MainShop, MainShow, FoodType, Goods, CartModel, OrderModel, OrderGoodsModel
 from utils.functions import create_order_num
+from user.models import UserTicketModel
 
 
 def home(request):
@@ -31,7 +32,19 @@ def home(request):
 
 def mine(request):
     if request.method == 'GET':
-        return render(request, 'mine/mine.html')
+        user = request.user
+        orders = OrderModel.objects.filter(user=user)
+        # payed = 0
+        # wait_pay = 0
+        # for order in orders:
+        #     if order.o_status == 0:
+        #         wait_pay +=1
+        #     elif order.o_status == 1:
+        #         payed += 1
+        payed = orders.filter(o_status=1).count()
+        wait_pay = orders.filter(o_status=0).count()
+        data = {'payed': payed, 'wait_pay': wait_pay}
+        return render(request, 'mine/mine.html', data)
 
 
 def market(request):
@@ -75,6 +88,13 @@ def user_market(request, typeid, childid, sortid):
             'childid': childid,
             'childList': childList,
         }
+        # 如果购物车已有商品数量，则更新
+        ticket = request.COOKIES.get('ticket')
+        user_ticket = UserTicketModel.objects.filter(ticket=ticket).first()
+        if user_ticket:
+            user_id = user_ticket.user_id
+            goods_in_cart = CartModel.objects.filter(user_id=user_id)
+            data['goods_in_cart'] = goods_in_cart
         return render(request, 'market/market.html', data)
 
 
@@ -130,11 +150,11 @@ def cart(request):
     if request.method == 'GET':
         user = request.user
         user_cart = CartModel.objects.filter(user=user)
-        is_all = True
+        is_all_select = True
         for info in user_cart:
             if not info.is_select:
-                is_all = False
-        data = {'user_cart':user_cart, 'is_all': is_all}
+                is_all_select = False
+        data = {'user_cart':user_cart, 'is_all_select': is_all_select}
         return render(request, 'cart/cart.html', data)
 
 
@@ -181,11 +201,56 @@ def generate_order(request):
             for goods_info in user_cart:
                 OrderGoodsModel.objects.create(goods=goods_info.goods, orders=order, goods_num=goods_info.c_num)
             user_cart.delete()
-            data = {'order':order}
-            return render(request, 'order/order_info.html', data)
+            data = {'order_id':order.id}
+            # return render(request, 'order/order_info.html', data)
+            return JsonResponse(data)
         data = {'code':9999,
             'msg':'没有选中任何商品'
             }
-        return render(request, 'cart/cart.html', data)
+        # return render(request, 'cart/cart.html', data)
+        return JsonResponse(data)
 
 
+def change_order_status(request):
+    """
+    改变订单状态
+    """
+    if request.method == 'POST':
+        order_id = request.POST.get('order_id')
+        user = request.user
+        OrderModel.objects.filter(id=order_id,user=user).update(o_status=1)
+        return JsonResponse({'code':200, 'msg': '请求成功'})
+
+# 待付款
+def wait_pay(request):
+    if request.method == 'GET':
+        user = request.user
+        wait_pay_orders = OrderModel.objects.filter(user=user, o_status=0)
+        data = {'wait_pay_orders': wait_pay_orders}
+        return render(request, 'order/order_list_wait_pay.html', data)
+
+#  待收货
+def payed(request):
+    if request.method == 'GET':
+        user = request.user
+        payed_orders = OrderModel.objects.filter(user=user, o_status=1)
+        data = {'payed_orders': payed_orders}
+        return render(request, 'order/order_list_payed.html', data)
+
+def wait_pay_to_payed(request):
+    if request.method == 'GET':
+        order_id = request.GET.get('order_id')
+        order = OrderModel.objects.filter(id=order_id).first()
+        return render(request, 'order/order_info.html', {'order': order})
+
+# 计算总价
+def get_total_price(request):
+    if request.method == 'GET':
+        user = request.user
+        user_cart = CartModel.objects.filter(user=user, is_select=True)
+        total = 0
+        for goods_info in user_cart:
+            total += goods_info.goods.price * goods_info.c_num
+
+        data = {'code':200, 'total': total}
+        return JsonResponse(data)
