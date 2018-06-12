@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    分数
+{% endblock %}
+{% block extCSS %}
+<!--泛解析加载静态文件-->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+
+
+{% block content %}
+    {{ scores }}
+    <ul>
+        {% for score in scores %}
+        {% if loop.first %}
+        <li style="color: rebeccapurple">{{ score }}</li>
+        {% elif loop.last %}
+        <li style="color:cornflowerblue">{{ score }}</li>
+        {% else %}
+        <li>{{ score }}</li>
+        {% endif %}
+        {% endfor %}
+    </ul>
+后端传递的：{{ content_h2 }}
+<br>
+去掉标签的：{{ content_h2|striptags }}
+<br>
+渲染样式的: {{ content_h2|safe }}
+<br>
+<!--引入函数-->
+{% from 'common.html' import show_goods %}
+
+{{ show_goods(1,'辣条') }}
+<br>
+{{ show_goods(2,'棒棒糖') }}
+<br>
+{{ show_goods(3,'肥宅快乐水') }}
+<br>
+{% endblock %}

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学生信息</title>
+</head>
+<body>
+{{ stus }}
+<br>
+{%for stu in stus%}
+name:{{stu.s_name}}
+age:{{stu.s_age}}
+{%endfor%}
+</body>
+</html>
