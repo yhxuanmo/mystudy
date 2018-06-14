@@ -113,6 +113,8 @@ def drop_db():
 
 #### 查询
 
+##### 普通条件查询
+
 ```python
 # filter筛选
 stus = Student.query.filter(Student.s_name == 'xx')
@@ -136,6 +138,94 @@ Student.query.all() --> class 'list'
 
 - 也可以直接通过get(id)获取id对应的值，相比于filter,get如果id不存在会报错
 
+##### 使用运算符查询
+
+- 在flask中，可以像django一样使用运算符进行查询
+- 使用运算符查询只能用filter，不能使用filter_by
+
+```
+filter(类名.属性名.运算符(‘xxx’))
+
+filter(类名.属性 数学运算符  值)
+```
+
+- 常用运算符
+
+```
+contains： 包含
+startswith：以什么开始
+endswith：以什么结束
+in_：在范围内
+like：模糊   %--匹配一个或多个   _(下划线)--只匹配一个
+__gt__: 大于
+__ge__：大于等于
+__lt__：小于
+__le__：小于等于
+```
+
+- 用于筛选/排序
+
+```
+offset(n)  跳过前n个
+limit(n)  只取n个
+order_by('id')  id升序排序  order_by('-id')  id降序
+get(id)  通过id获取对象
+first()  获取第一个
+paginate() 分页
+```
+
+- 逻辑运算
+
+```
+与:and_
+	filter(and_(条件,条件…))
+
+或:or_
+	filter(or_(条件,条件…))
+
+非:not_
+	filter(not_(条件),条件…)
+```
+
+##### 查询结果分页
+
+- 在flask中我们也可以对查询结果进行分页
+- 直接通过   类名.qurey.paginate(页数，每页条数)就能获取分页对象
+
+```python
+@user_blueprint.route('/paginate/', methods=['GET'])
+def stu_paginate():
+    if request.method == 'GET':
+        # 获取要显示的页数
+        page = int(request.args.get('page',1))
+        # 每页条数
+        pagenum = 5
+        # 分页对象
+        paginate = Student.query.order_by('s_id').paginate(page,pagenum)
+        # 将对象转成可迭代
+        stus = paginate.items
+
+        return render_template('stu_paginate.html', stus=stus, paginate=paginate)
+```
+
+- 如果在前端需要通过for循环来遍历数据，一定要通过.items转成可迭代对象
+- 分页对象的属性
+
+```
+paginate.items      转成可迭代
+paginate.page       当前页数
+paginate.prev_num   上一页页数
+paginate.next_num   下一页页数
+paginate.has_prev   如果有上一页，返回True
+paginate.has_next   如果有下一页，返回True
+paginate.pages      查询得到的总页数
+paginate.per_page   每页显示的记录数量
+paginate.total      查询返回的记录总数
+paginate.query      分页的源查询
+```
+
+
+
 #### 添加
 
 ```python
@@ -152,6 +242,26 @@ def create_stu():
 
 - 创建新的实例化对象，并add添加到db.session中，再commit提交
 - 区别于django: 对象.save()
+
+##### 批量增加
+
+- 在flask中还提供了批量增加的操作db.session.add_all(),参数为一个存放多个对象的列表
+
+```python
+@user_blueprint.route('/add_course/')
+def add_course():
+    courses = ['python', 'java', 'c++', 'c#', 'php', ]
+    course_list = []
+    for c_name in courses:
+        course = Course()
+        course.c_name = c_name
+        course_list.append(course)
+    db.session.add_all(course_list)
+    db.session.commit()
+    return '课程创建成功'
+```
+
+
 
 #### 更改
 
