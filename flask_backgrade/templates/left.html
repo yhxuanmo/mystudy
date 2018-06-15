@@ -1,0 +1,124 @@
+{% extends 'base_user.html' %}
+
+
+{% block extJS %}
+{{ super() }}
+{% endblock %}
+
+
+{% block content %}
+	<!-- 左边节点 -->
+	<div class="container">
+
+		<div class="leftsidebar_box">
+			<a href="main.html" target="main"><div class="line">
+					<img src="{{ url_for('static', filename='img/coin01.png') }}" />&nbsp;&nbsp;首页
+				</div></a>
+			<dl class="system_log">
+				<dt>
+					<img class="icon1" src="img/coin03.png" /><img class="icon2"
+						src="{{ url_for('static', filename='img/coin04.png') }}" /> 班级管理<img class="icon3"
+						src="{{ url_for('static', filename='img/coin19.png') }}" /><img class="icon4"
+						src="{{ url_for('static', filename='img/coin20.png') }}" />
+				</dt>
+				<dd>
+					<img class="coin11" src="{{ url_for('static', filename='img/coin111.png') }}" /><img class="coin22"
+						src="{{ url_for('static', filename='img/coin222.png') }}" /><a class="cks" href="grade.html"
+						target="main">班级列表</a><img class="icon5" src="{{ url_for('static', filename='img/coin21.png') }}" />
+				</dd>
+				<dd>
+					<img class="coin11" src="{{ url_for('static', filename='img/coin111.png') }}" /><img class="coin22"
+						src="{{ url_for('static', filename='img/coin222.png') }}" /><a class="cks" href="addgrade.html"
+						target="main">班级添加</a><img class="icon5" src="{{ url_for('static', filename='img/coin21.png') }}" />
+				</dd>
+			</dl>
+			<dl class="system_log">
+				<dt>
+					<img class="icon1" src="{{ url_for('static', filename='img/coin03.png') }}" /><img class="icon2"
+						src="{{ url_for('static', filename='img/coin04.png') }}" /> 学生管理<img class="icon3"
+						src="{{ url_for('static', filename='img/coin19.png') }}" /><img class="icon4"
+						src="{{ url_for('static', filename='img/coin20.png') }}" />
+				</dt>
+				<dd>
+					<img class="coin11" src="{{ url_for('static', filename='img/coin111.png') }}" /><img class="coin22"
+						src="{{ url_for('static', filename='img/coin222.png') }}" /><a class="cks" href="student.html"
+						target="main">学生列表</a><img class="icon5" src="{{ url_for('static', filename='img/coin21.png') }}" />
+				</dd>
+				<dd>
+					<img class="coin11" src="{{ url_for('static', filename='img/coin111.png') }}" /><img class="coin22"
+						src="{{ url_for('static', filename='img/coin222.png') }}" /><a class="cks" href="addstu.html"
+						target="main">添加学生</a><img class="icon5" src="{{ url_for('static', filename='img/coin21.png') }}" />
+				</dd>
+			</dl>
+			<dl class="system_log">
+				<dt>
+					<img class="icon1" src="{{ url_for('static', filename='img/coin03.png') }}" /><img class="icon2"
+						src="{{ url_for('static', filename='img/coin04.png') }}" />权限管理<img class="icon3"
+						src="{{ url_for('static', filename='img/coin19.png') }}" /><img class="icon4"
+						src="{{ url_for('static', filename='img/coin20.png') }}" />
+				</dt>
+				<dd>
+					<img class="coin11" src="{{ url_for('static', filename='img/coin111.png') }}" /><img class="coin22"
+						src="{{ url_for('static', filename='img/coin222.png') }}" /><a class="cks" href="roles.html"
+						target="main">角色列表</a><img class="icon5" src="{{ url_for('static', filename='img/coin21.png') }}" />
+				</dd>
+				<dd>
+					<img class="coin11" src="{{ url_for('static', filename='img/coin111.png') }}" /><img class="coin22"
+						src="{{ url_for('static', filename='img/coin222.png') }}" /><a class="cks" href="addroles.html"
+						target="main">添加角色</a><img class="icon5" src="{{ url_for('static', filename='img/coin21.png') }}" />
+				</dd>
+				<dd>
+					<img class="coin11" src="{{ url_for('static', filename='img/coin111.png') }}" /><img class="coin22"
+						src="{{ url_for('static', filename='img/coin222.png') }}" /><a class="cks" href="permissions.html"
+						target="main">权限列表</a><img class="icon5" src="{{ url_for('static', filename='img/coin21.png') }}" />
+				</dd>
+				<dd>
+					<img class="coin11" src="{{ url_for('static', filename='img/coin111.png') }}" /><img class="coin22"
+						src="{{ url_for('static', filename='img/coin222.png') }}" /><a class="cks" href="addpermission.html"
+						target="main">添加权限</a><img class="icon5" src="{{ url_for('static', filename='img/coin21.png') }}" />
+				</dd>
+			</dl>
+			<dl class="system_log">
+				<dt>
+					<img class="icon1" src="{{ url_for('static', filename='img/coinL1.png') }}" /><img class="icon2"
+						src="{{ url_for('static', filename='img/coinL2.png') }}" />用户管理<img class="icon3"
+						src="{{ url_for('static', filename='img/coin19.png') }}" /><img class="icon4"
+						src="{{ url_for('static', filename='img/coin20.png') }}" />
+				</dt>
+				<dd>
+					<img class="coin11" src="{{ url_for('static', filename='img/coin111.png') }}" /><img class="coin22"
+						src="{{ url_for('static', filename='img/coin222.png') }}" /><a href="users.html"
+						target="main" class="cks">用户列表</a><img class="icon5"
+						src="{{ url_for('static', filename='img/coin21.png') }}" />
+				</dd>
+				<dd>
+					<img class="coin11" src="{{ url_for('static', filename='img/coin111.png') }}" /><img class="coin22"
+						src="{{ url_for('static', filename='img/coin222.png') }}" /><a href="add_edit.html"
+						target="main" class="cks">添加用户</a><img class="icon5"
+						src="{{ url_for('static', filename='img/coin21.png') }}" />
+				</dd>
+			</dl>
+			<dl class="system_log">
+				<dt>
+					<img class="icon1" src="{{ url_for('static', filename='img/coinL1.png') }}" /><img class="icon2"
+						src="{{ url_for('static', filename='img/coinL2.png') }}" /> 系统管理<img class="icon3"
+						src="{{ url_for('static', filename='img/coin19.png') }}" /><img class="icon4"
+						src="{{ url_for('static', filename='img/coin20.png') }}" />
+				</dt>
+				<dd>
+					<img class="coin11" src="{{ url_for('static', filename='img/coin111.png') }}" /><img class="coin22"
+						src="{{ url_for('static', filename='img/coin222.png') }}" /><a href="changepwd.html"
+						target="main" class="cks">修改密码</a><img class="icon5"
+						src="{{ url_for('static', filename='img/coin21.png') }}" />
+				</dd>
+				<dd>
+					<img class="coin11" src="{{ url_for('static', filename='img/coin111.png') }}" /><img class="coin22"
+						src="{{ url_for('static', filename='img/coin222.png') }}" /><a class="cks">退出</a><img
+						class="icon5" src="{{ url_for('static', filename='img/coin21.png') }}" />
+				</dd>
+			</dl>
+
+		</div>
+
+	</div>
+{% endblock %}

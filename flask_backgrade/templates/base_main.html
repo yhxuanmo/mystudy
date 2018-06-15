@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block extCSS %}
+<link href="{{ url_for('static', filename='css/haiersoft.css') }}" rel="stylesheet" type="text/css" media="screen,print" />
+<link href="{{ url_for('static', filename='css/print.css') }}" rel="stylesheet" type="text/css"  media="print" />
+{% endblock %}
+
+{% block extJS %}
+<script src="{{ url_for('static', filename='js/jquery-1.10.1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/side.js') }}" type="text/javascript"></script>
+{% endblock %}

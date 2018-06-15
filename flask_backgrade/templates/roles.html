@@ -1,0 +1,33 @@
+{% extends 'base_main.html' %}
+
+{% block title %}
+{% endblock %}
+{% block extJS %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+
+
+<!-- MainForm -->
+<div id="MainForm">
+<div class="form_boxA">
+<h2>角色列表</h2>
+<table cellpadding="0" cellspacing="0">
+<tr>
+<th>序号</th>
+<th>角色名称</th>
+<th>操作</th>
+</tr>
+<tr>
+<td>1</td>
+<td>管理员</td>
+<td><a href="p2.html">编辑|删除</a></td>
+</tr>
+
+</table>
+</div>
+
+</div>
+
+{% endblock %}
