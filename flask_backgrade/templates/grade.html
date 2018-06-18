@@ -20,13 +20,14 @@
 <th>创建时间</th>
 <th>操作</th>
 </tr>
+    {% for grade in grade_list %}
 <tr>
-<td>1</td>
-<td>python2班</td>
-<td>2017-01-01</td>
-<td><a href="p2.html">查看</a> | <a href="#">操作</a></td>
+<td>{{ grade.g_id }}</td>
+<td>{{ grade.g_name }}</td>
+<td>{{ grade.g_create_time }}</td>
+<td><a href="/index/stu_of_grade/?g_id={{ grade.g_id }}">查看</a> | <a href="#">操作</a></td>
 </tr>
-
+    {% endfor %}
 </table>
 <p class="msg">共找到47条年度预算记录，当前显示从第1条至第10条</p>
 </div>

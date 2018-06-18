@@ -19,11 +19,13 @@
 <th>角色名称</th>
 <th>操作</th>
 </tr>
+    {% for role in role_list %}
 <tr>
-<td>1</td>
-<td>管理员</td>
+<td>{{ role.r_id }}</td>
+<td>{{ role.r_name }}</td>
 <td><a href="p2.html">编辑|删除</a></td>
 </tr>
+    {% endfor %}
 
 </table>
 </div>

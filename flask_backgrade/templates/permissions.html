@@ -19,16 +19,13 @@
 <th>权限名称</th>
 <th>操作</th>
 </tr>
+{% for permission in permission_list %}
 <tr>
-<td>1</td>
-<td>查看班级</td>
+<td>{{ permission.p_id }}</td>
+<td>{{ permission.p_name }}</td>
 <td><a href="p2.html">编辑|删除</a></td>
 </tr>
-<tr>
-<td>2</td>
-<td>班级添加</td>
-<td><a href="p2.html">编辑|删除</a></td>
-</tr>
+{% endfor %}
 
 </table>
 </div>

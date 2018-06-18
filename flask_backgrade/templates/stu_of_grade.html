@@ -37,21 +37,21 @@
 
 <ul id="PageNum">
     <li>当前第{{ paginate.page }}页</li>
-<li><a href="/index/student/">首页</a></li>
+<li><a href="/index/stu_of_grade/?g_id={{ grade.g_id }}">首页</a></li>
     {% if paginate.has_prev %}
-<li><a href="/index/student/?page={{ paginate.prev_num }}">上一页</a></li>
+<li><a href="/index/stu_of_grade/?g_id={{ grade.g_id }}&page={{ paginate.prev_num }}">上一页</a></li>
     {% endif %}
 {% for i in paginate.iter_pages() %}
     {% if not i %}
         <li><a href="#">…</a></li>
     {% else %}
-<li><a href="/index/student/?page={{ i }}">{{ i }}</a></li>
+<li><a href="/index/stu_of_grade/?g_id={{ grade.g_id }}&page={{ i }}">{{ i }}</a></li>
     {% endif %}
 {% endfor %}
 {% if paginate.has_next %}
-<li><a href="/index/student/?page={{ paginate.next_num }}">下一页</a></li>
+<li><a href="/index/stu_of_grade/?g_id={{ grade.g_id }}&page={{ paginate.next_num }}">下一页</a></li>
 {% endif %}
-<li><a href="/index/student/?page={{ paginate.pages }}">尾页</a></li>
+<li><a href="/index/stu_of_grade/?g_id={{ grade.g_id }}&page={{ paginate.pages }}">尾页</a></li>
 </ul>
 
 </div>

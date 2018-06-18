@@ -26,39 +26,35 @@ $("body").click(function(i){ !$(i.target).parents(".select").first().is(s) ? _hi
 </script>
 <div class="form_boxC">
 <p>"<span class="f_cB">*</span>"号为必填项目</p>
-<form action="" method="">
+<form action="" method="post">
 <table cellpadding="0" cellspacing="0">
 <tr>
-<th>员工姓名 <span class="f_cB">*</span></th>
-<td><div class="txtbox floatL" style="width:100px;"><input name="" type="text" size="5" value="张三"></div></td>
+<th>学生姓名 <span class="f_cB">*</span></th>
+<td><div class="txtbox floatL" style="width:100px;"><input name="s_name" type="text" size="5" value="张三"></div></td>
 </tr>
 
-<tr>
-<th>性别 <span class="f_cB">*</span></th>
-<td><!-- selectbox -->
-<div class="selectbox" style="width:230px;">
-<dl class="select">
-<dt>请选择</dt>
-<dd><ul>
-<li><a href="#"> 男 </a></li>
-<li><a href="#"> 女 </a></li>
-</ul></dd></dl>
-</div>
-<!-- /selectbox --></td>
-</tr>
+{#<tr>#}
+{#<th>性别 <span class="f_cB">*</span></th>#}
+{#<td><!-- selectbox -->#}
+{#<div class="selectbox" style="width:230px;">#}
+{#<dl class="select">#}
+{#<dt>请选择</dt>#}
+{#<dd><ul>#}
+{#<li><a href="#"> 男 </a></li>#}
+{#<li><a href="#"> 女 </a></li>#}
+{#</ul></dd></dl>#}
+{#</div>#}
+{#<!-- /selectbox --></td>#}
+{#</tr>#}
 <tr>
 <th>所属班级<span class="f_cB">*</span></th>
 <td><!-- selectbox -->
 <div class="selectbox" style="width:230px;">
-<dl class="select">
-<dt>python2班</dt>
-<dd><ul>
-<li><a href="#">选项A</a></li>
-<li><a href="#">选项B</a></li>
-<li><a href="#">选项C</a></li>
-<li><a href="#">选项D</a></li>
-<li><a href="#">选项E</a></li>
-</ul></dd></dl>
+    <select name="g_id" style="width:220px;">
+        {% for grade in grades %}
+        <option value="{{ grade.g_id }}">{{ grade.g_name }}</option>
+        {% endfor %}
+    </select>
 </div>
 </td>
 </tr>

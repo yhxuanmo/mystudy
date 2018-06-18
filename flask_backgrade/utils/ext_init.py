@@ -1,4 +1,5 @@
+from App.models import db
 
 
 def ext_init(app):
-    pass
+    db.init_app(app=app)

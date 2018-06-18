@@ -26,14 +26,14 @@ dt.click(function(){dd.is(":hidden")?_show():_hide();});
 dd.find("a").click(function(){dt.html($(this).html());_hide();});
 $("body").click(function(i){ !$(i.target).parents(".select").first().is(s) ? _hide():"";});})})
 </script>
-<form action="" method="get">
+<form action="" method="post">
 <div class="form_boxC">
 <table cellpadding="0" cellspacing="0">
 <tr>
 <th width="100">权限名称</th>
 <td>
 <div class="selectbox" style="width:230px;">
-<input type="text" name="grade_name" placeholder="请填入权限名称">
+<input type="text" name="p_name" placeholder="请填入权限名称">
 </div>
 </td>
 </tr>
