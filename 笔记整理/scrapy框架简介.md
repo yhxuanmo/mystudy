@@ -48,7 +48,7 @@
 scrapy startproject yourspider
 ```
 
-![spider_scrapy_project](\mystudy\笔记整理\img\spider_scrapy_project.png)
+![spider_scrapy_project](img\spider_scrapy_project.png)
 
 #### 文件说明
 
