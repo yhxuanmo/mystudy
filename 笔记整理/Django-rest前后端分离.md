@@ -85,7 +85,7 @@ class StudentSerializer(serializers.ModelSerializer):
 
 - to_representation中instance是当前循环的学生的对象
 
-#### views中定于对应的类
+#### views中定义对应的类
 
 - 在views中我们需要定义实现相关功能的类
 

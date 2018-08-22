@@ -309,7 +309,16 @@ python manage.py startapp hrs
   实体对象  <--->  一条记录
   ```
 
+##### 从数据库反向生成models.py
 
+- 如果在数据库中已经创建好了表格，那么可以直接通过数据库反向生成models.py中的模型代码
+
+```
+python manage.py inspectdb > school/models.py
+```
+
+- 关键字 inspectdb    , > school/models.py 表示在应用(app)school中反向生成models.py（注意需要先删除原来的models.py文件）， 如果只是在已有的models.py中添加新模型，就需要生成其他文件，再把生成的代码粘贴进去
+- 注意，反向生成关联的数据库，是在setting中配置的数据库
 
 #### views.py
 
